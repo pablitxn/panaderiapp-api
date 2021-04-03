@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  panaderiapp-db:
+    image: 'docker.io/bitnami/postgresql:11-debian-10'
+    container_name: panaderiapp-db
+    ports:
+      - '5432:5432'
+    volumes:
+      - 'postgresql_data:/bitnami/postgresql'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - POSTGRESQL_USERNAME=panaderiapp
+      - POSTGRESQL_PASSWORD=panaderiapp
+      - POSTGRESQL_DATABASE=panaderiapp
+      - POSTGRESQL_POSTGRES_PASSWORD=postgres
+
+volumes:
+  postgresql_data:
+    driver: local
