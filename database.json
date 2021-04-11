@@ -1,0 +1,33 @@
+{
+	"dev": {
+		"driver": { "ENV": "DEVELOPMENT_DRIVER" },
+		"user": "panaderiapp",
+		"password": { "ENV": "DEVELOPMENT_PASSWORD" },
+		"database": { "ENV": "DEVELOPMENT_DATABASE" },
+		"ssl": false,
+		"host": "localhost",
+		"schema": { "ENV": "DEVELOPMENT_SCHEMA" },
+		"port": { "ENV": "DEVELOPMENT_DBPORT" }
+	},
+	"test": {
+		"driver": { "ENV": "TEST_DRIVER" },
+		"user": "panaderiapp",
+		"password": { "ENV": "TEST_PASSWORD" },
+		"database": { "ENV": "TEST_DATABASE" },
+		"ssl": false,
+		"host": "localhost",
+		"schema": { "ENV": "TEST_SCHEMA" },
+		"port": { "ENV": "TEST_DBPORT" }
+	},
+	"prod": {
+		"driver": { "ENV": "DRIVER" },
+		"user": "axddxpokyamldn",
+		"password": { "ENV": "PASSWORD" },
+		"database": { "ENV": "DATABASE" },
+		"ssl": { "rejectUnauthorized": false },
+		"host": { "ENV": "HOST" },
+		"schema": { "ENV": "SCHEMA" },
+		"port": { "ENV": "DBPORT" },
+		"URI": { "ENV": "URI" }
+	}
+}

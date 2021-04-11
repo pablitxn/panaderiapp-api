@@ -3,7 +3,6 @@ import fs from 'fs'
 
 const TEST = 'test'
 const DEV = 'development'
-const PROD = 'production'
 const ENV = process.env.NODE_ENV
 
 let envFound
@@ -15,12 +14,22 @@ switch (ENV) {
 	case DEV:
 		envFound = dotenv.parse(fs.readFileSync('.env.dev'))
 		break
-	case PROD:
-		envFound = dotenv.parse(fs.readFileSync('.env'))
-		break
-
 	default:
-		envFound = dotenv.config()
+		envFound = {
+			PORT: process.env.PORT,
+			BASE_URL: process.env.BASE_URL,
+			DRIVER: process.env.DRIVER,
+			USER: process.env.USER,
+			PASSWORD: process.env.PASSWORD,
+			DATABASE: process.env.DATABASE,
+			SSL: process.env.SSL,
+			HOST: process.env.HOST,
+			SCHEMA: process.env.SCHEMA,
+			DBPORT: process.env.DBPORT,
+			URI: process.env.URI,
+			error: false
+		}
+		break
 }
 
 if (envFound.error) {
@@ -33,17 +42,6 @@ export default {
 	port: parseInt(envFound.PORT),
 	baseURL: envFound.BASE_URL,
 	env: envFound.NODE_ENV,
-	// Auth0
-	authz: {
-		issuerBaseURL: envFound.AUTH0_ISSUER_BASE_URL,
-		baseURL: envFound.BASE_URL,
-		clientID: envFound.AUTH0_CLIENT_ID,
-		secret: envFound.JWT_SECRET,
-		clientSecret: envFound.CLIENT_SECRET
-	},
-	audience: envFound.AUDIENCE,
-	grantType: envFound.GRANT_TYPE,
-	authzTokenUrl: envFound.AUTH0_TOKEN_URL,
 	// Logs dev
 	logs: {
 		level: envFound.LOG_LEVEL || 'silly'
@@ -54,10 +52,11 @@ export default {
 		user: envFound.USER,
 		password: envFound.PASSWORD,
 		database: envFound.DATABASE,
-		ssl: envFound.SSL === 'true' ? true : false,
+		ssl: { rejectUnauthorized: false },
 		host: envFound.HOST,
 		schema: envFound.SCHEMA,
-		port: parseInt(envFound.DBPORT)
+		port: parseInt(envFound.DBPORT),
+		URI: envFound.URI
 	},
 	// Endpoint prefix
 	api: {
