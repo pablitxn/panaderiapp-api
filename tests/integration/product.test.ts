@@ -1,11 +1,11 @@
-import TestHelper from '../../../utils/test-helper'
-import Fixtures from '../../fixtures'
+import TestHelper from '../../utils/test-helper'
+import Fixtures from '../fixtures'
 
-import expressApp from '../../../app'
+import expressApp from '../../app'
 import supertest from 'supertest'
 import DBMigrate from 'db-migrate'
-import configs from '../../../loaders/configs'
-import { IPost } from 'interfaces/blog/post'
+import configs from '../../loaders/configs'
+// import { IPost } from 'interfaces/post'
 import axios, { AxiosRequestConfig } from 'axios'
 
 describe('Blog / Posts', () => {

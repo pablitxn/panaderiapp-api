@@ -1,11 +1,14 @@
-import { db, pgp } from '../../loaders/pg-promise'
-import PostDB, { IPostDB } from '../../data/blog/post'
-import { IPost, fieldSpec } from '../../interfaces/blog/post'
-import { Limit, Offset } from '../../interfaces'
-import Model from '../model'
+import { db, pgp } from '../loaders/pg-promise'
+import ProductDB, { IProductDB } from '../data/product'
+import { IProduct, fieldSpec } from '../interfaces/product'
+import { Limit, Offset } from '../interfaces'
+import Model from '.'
 
-class Post extends Model {
-	constructor(fields: IPost) {
+/**
+ * TODO : improve typing
+ */
+class Product extends Model {
+	constructor(fields: IProduct) {
 		super(fieldSpec, fields)
 	}
 
@@ -19,17 +22,15 @@ class Post extends Model {
 		// if (fields.something) {	}
 		return this
 	}
-
 	/** TODO: describe what is it
 	 *	when will i need inflate some property ?
 	 * @param fields
 	 * @returns fields in db format
 	 */
-	static deshydrate(fields: IPost): IPostDB {
-		const fieldsDeshydrated: IPostDB = super.deshydrate(fields, fieldSpec)
+	static deshydrate(fields: IProduct): IProductDB {
+		const fieldsDeshydrated: IProductDB = super.deshydrate(fields, fieldSpec)
 		return fieldsDeshydrated
 	}
-
 	/** TODO: describe what is it
 	 *	when will i need inflate some property ?
 	 * @param fields
@@ -39,7 +40,6 @@ class Post extends Model {
 		const fields = super.hydrate()
 		return fields
 	}
-
 	/** TODO: describe what is it
 	 * 	when will i need modificate render?
 	 *  when i will need to do it?
@@ -50,7 +50,6 @@ class Post extends Model {
 		let fields = super.render(options)
 		return fields
 	}
-
 	/** TODO: describe what is it
 	 * 	when will i need modificate render?
 	 *  what can this receive?
@@ -61,78 +60,78 @@ class Post extends Model {
 		// if(someValidation) errors.push({ field, message })
 		// if (errors.length > 0) throw CustomError.validationError(errors)
 	}
-
 	/**
 	 * @param {number} limit -Limit quantity results
 	 * @param {number} offset - Offset pagination
-	 * @returns An array with Posts
+	 * @returns An array with Products
 	 */
 	static async index(limit: Limit, offset: Offset) {
 		try {
-			const database = new PostDB(db, pgp)
+			const database = new ProductDB(db, pgp)
 			const records = await database.index(limit, offset)
-			const posts = await records.map((record) => new Post(record).hydrate())
-			return posts
+			const res = await records.map((record: any) => new Product(record).hydrate())
+			return res
 		} catch (err) {
 			return err
 		}
 	}
 	/**
-	 * @param {number} id - Post ID
-	 * @returns A certain Post
+	 * @param {number} id - Product ID
+	 * @returns A certain Product
 	 */
 	static async findById(id: number) {
 		try {
-			const database = new PostDB(db, pgp)
-			const data = await database.findById(id)
-			return data
+			const database = new ProductDB(db, pgp)
+			const res = await database.findById(id)
+			return res
 		} catch (err) {
 			return err
 		}
 	}
 	/**
-	 * @param post - Object seralized
-	 * @returns Post created
+	 * @param product - Object seralized
+	 * @returns Product created
 	 */
-	static async create(post: IPost) {
+	static async create(product: IProduct) {
 		try {
-			const database = new PostDB(db, pgp)
-			const postFormatted = Post.deshydrate(post)
-			const record = await database.create(postFormatted)
-			const response = new Post(record).hydrate()
-			return response
+			const database = new ProductDB(db, pgp)
+			const productFormatted = Product.deshydrate(product)
+			const record = await database.create(productFormatted)
+			const res = new Product(record).hydrate()
+			return res
 		} catch (err) {
 			return err
 		}
 	}
 	/**
-	 * @param {number} id - Post ID
-	 * @param post - Object serialized with fields to edit
-	 * @returns Post created
+	 * @param {number} id - Product ID
+	 * @param product - Object serialized with fields to edit
+	 * @returns Product edited
 	 */
-	static async edit(id: number, post: IPost) {
+	static async edit(id: number, product: IProduct) {
 		try {
-			const database = new PostDB(db, pgp)
-			const record = await database.update(id, post)
-			return record
+			const database = new ProductDB(db, pgp)
+			const record = await database.update(id, product)
+			const res = new Product(record).hydrate()
+			return res
 		} catch (err) {
 			return err
 		}
 	}
 	/**
 	 *
-	 * @param {number} id - Post ID
-	 * @returns Name and ID of Post deleted
+	 * @param {number} id - Product ID
+	 * @returns Name and ID of Product deleted
 	 */
 	static async delete(id: number) {
 		try {
-			const database = new PostDB(db, pgp)
-			const record = await database.delete(id)
-			return record
+			const database = new ProductDB(db, pgp)
+			const res = await database.delete(id)
+			return res
 		} catch (err) {
 			return err
 		}
 	}
 }
 
-export default Post
+export default Product

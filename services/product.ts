@@ -1,12 +1,14 @@
-import PostModel from '../../models/blog/post'
+import ProductModel from '../models/product'
 
 type Limit = number | null
 type Offset = number | null
-
-class PostService {
+/**
+ * TODO: improve typing
+ */
+class ProductService {
 	static async index(limit: Limit, offset: Offset) {
 		try {
-			const response = await PostModel.index(limit, offset)
+			const response = await ProductModel.index(limit, offset)
 			return response
 		} catch (err) {
 			return err
@@ -15,7 +17,7 @@ class PostService {
 
 	static async create(payload: any) {
 		try {
-			const response = await PostModel.create(payload)
+			const response = await ProductModel.create(payload)
 			return response
 		} catch (err) {
 			return err
@@ -24,7 +26,7 @@ class PostService {
 
 	static async findById(id: number) {
 		try {
-			const response = await PostModel.findById(id)
+			const response = await ProductModel.findById(id)
 			return response
 		} catch (err) {
 			return err
@@ -33,7 +35,7 @@ class PostService {
 
 	static async edit(id: number, post: any) {
 		try {
-			const response = await PostModel.edit(id, post)
+			const response = await ProductModel.edit(id, post)
 			return response
 		} catch (err) {
 			return err
@@ -42,7 +44,7 @@ class PostService {
 
 	static async delete(id: number) {
 		try {
-			const response = await PostModel.delete(id)
+			const response = await ProductModel.delete(id)
 			return response
 		} catch (err) {
 			return err
@@ -50,4 +52,4 @@ class PostService {
 	}
 }
 
-export default PostService
+export default ProductService

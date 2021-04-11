@@ -61,7 +61,7 @@ export default {
 	},
 	// Endpoint prefix
 	api: {
-		prefix: '/api'
+		prefix: '/api/v1'
 	},
 	// Testing configs
 	test: {

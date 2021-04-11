@@ -1,13 +1,10 @@
-import Post from './post'
-import User from './user'
+import Product from './product'
 
 const Fixtures = {
-	User,
-	Post,
+	Product,
 	createAll: async () => {
 		try {
-			await User.createAll()
-			return await Post.createAll()
+			return await Product.createAll()
 		} catch (error) {
 			console.error(error)
 			return console.log('Fixtures error in createAll()')
@@ -15,8 +12,7 @@ const Fixtures = {
 	},
 	resetAll: async () => {
 		try {
-			await User.reset()
-			return await Post.reset()
+			return await Product.reset()
 		} catch (error) {
 			console.error(error)
 			return console.log('Fixtures error in resetAll()')
