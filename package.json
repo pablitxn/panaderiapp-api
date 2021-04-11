@@ -70,5 +70,8 @@
     "env": {
       "jest": true
     }
+  },
+  "engines": {
+    "node": "15.7.0"
   }
 }
