@@ -12,7 +12,7 @@ const ProductRoute = (app: Router) => {
 		const { limit, offset } = requestHelper(req)
 		try {
 			const data = await ProductService.index(limit, offset)
-			res.status(200).json({ data })
+			res.status(200).json(data)
 		} catch (err) {
 			console.log(err)
 			res.status(500).send(err)
